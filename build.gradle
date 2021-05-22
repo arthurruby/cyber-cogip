@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'fr.cyber.cogip'
+group = 'fr.cogip'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 

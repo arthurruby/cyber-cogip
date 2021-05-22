@@ -1,4 +1,4 @@
-package fr.cybercogip;
+package fr.cogip.cybercogip;
 
 import org.junit.jupiter.api.Test;
 

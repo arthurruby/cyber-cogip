@@ -1,6 +1,6 @@
-package fr.cybercogip;
+package fr.cogip.cybercogip;
 
-import fr.cybercogip.controllers.MainController;
+import fr.cogip.cybercogip.controllers.MainController;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
