@@ -1,4 +1,4 @@
-package fr.cyber.cogip.cogip;
+package fr.cybercogip;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
