@@ -1,65 +1,49 @@
 package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="first_name", nullable = false)
     @NotBlank
     @Size(max = 55)
-    private String firstName;
+    @Column(name="name", nullable = false)
+    private String name;
 
-    @Column(name="last_name", nullable = false)
     @NotBlank
-    @Size(max = 55)
-    private String lastName;
-
-    @Column(name="phone_number", nullable = false)
-    @NotBlank
-    @Size(max = 25)
+    @Size(min = 10, max = 13)
+    @Column(name="phone_number", nullable = false, length = 13)
     private  String phoneNumber;
 
-    @Column
-    @NotBlank
+    @Email
     @Size(max = 55)
+    @Column(length = 55, unique = true, nullable = false)
     private  String email;
 
     @ManyToOne
-    @JoinColumn(name="invoice_adress", nullable = false)
-    @NotBlank
-    @Size(max = 55)
-    private Address invoiceAddress;
-
-    @ManyToOne
-    @JoinColumn(name="shipping_adress)", nullable = false)
-    @NotBlank
-    @Size(max = 55)
-    private  Address shippingAddress;
+    @JoinColumn(name="address_id")
+    private  Address address;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Order> orders;
+    private List<Order> orders;
 
-    //constructors
     public Customer() {
+        this.orders = new ArrayList<>();
     }
 
-    public Customer( String firstName, String lastName, String phoneNumber, String email, Address invoiceAddress, Address shippingAddress, User user) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(String name, String phoneNumber, String email, Address address) {
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.invoiceAddress = invoiceAddress;
-        this.shippingAddress = shippingAddress;
-
+        this.address = address;
     }
 
     public Long getId() {
@@ -70,24 +54,16 @@ public class Customer {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -95,30 +71,34 @@ public class Customer {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public Address getInvoiceAddress() {
-        return invoiceAddress;
+    public Address getAddress() {
+        return this.address;
     }
 
-    public void setInvoiceAddress(Address invoiceAddress) {
-        this.invoiceAddress = invoiceAddress;
+    public void setAddress(Address shippingAddress) {
+        this.address = shippingAddress;
     }
 
-    public Address getShippingAddress() {
-        return shippingAddress;
+    public List<Order> getOrders() {
+        return this.orders;
     }
 
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer();
+        sb.append(this.name).append(" (")
+        .append(this.email).append(')');
+        return sb.toString();
+    }
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>COGIP Bonjour</title>
+</head>
+<body>
+<h1>COGIP Bonjour!</h1>
+    <h3>Détail User:</h3>
+    <div th:each="user : ${users}">
+        <p>Username:</p>
+        <p th:text="${user.getUsername()}"></p>
+        <p>First Name:</p>
+        <p th:text="${user.getFirstName()}"></p>
+        <p>Last Name:</p>
+        <p th:text="${user.getLastName()}"></p>
+        <p>Email:</p>
+        <p th:text="${user.getEmail()}"></p>
+        <p>BCrypt Hashed Password:</p>
+        <p th:text="${user.getPassword()}"></p>
+        <p>Role:</p>
+        <p th:text="${user.getRole()}"></p>
+        <p>Associated orders:</p>
+        <ul th:each="order: ${user.getOrders()}">
+            <li th:text="${order}"></li>
+        </ul>
+    </div>
+
+    <h3>Détail Customer:</h3>
+    <div th:each="customer : ${customers}">
+        <p>Name:</p>
+        <p th:text="${customer.getName()}"></p>
+        <p>Email:</p>
+        <p th:text="${customer.getEmail()}"></p>
+        <p>Phone:</p>
+        <p th:text="${customer.getPhoneNumber()}"></p>
+        <p>Address:</p>
+        <p th:text="${customer.getAddress()}"></p>
+        <p>Associated orders:</p>
+        <div th:each="order: ${customer.getOrders()}">
+            <ul th:object="${order}">
+                <li>
+                    Reference:
+                    <span th:text="*{reference}"></span>
+                </li>
+                <li>
+                    <div th:object="${order.getUser()}">
+                        User associated:
+                        <span th:text="*{firstName}"></span>
+
+                        <span th:text="*{lastName}"></span>
+                    </div>
+                </li>
+                <li>
+                    <div th:object="${order.getCustomer()}">
+                        Customer:
+                        <span th:text="*{name}"></span>
+
+                        <span th:text="*{address}"></span>
+                    </div>
+                </li>
+                <li>
+                    Date of Creation:
+                    <span th:text="*{#temporals.format(dateOfCreation, 'dd-MM-yyyy HH:mm')}"></span>
+                </li>
+                <li>
+                    Status:
+                    <span th:text="*{status}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Détail Product:</h3>
+    <div th:each="product : ${products}">
+        <p>Name:</p>
+        <p th:text="${product.getName()}"></p>
+        <p>Description:</p>
+        <p th:text="${product.getDescription()}"></p>
+        <p>Category:</p>
+        <p th:text="${product.getCategory()}"></p>
+        <p>Price:</p>
+        <p th:text="${product.getPrice()}"></p>
+        <p>Stock:</p>
+        <p th:text="${product.getStock()}"></p>
+        <p>Status:</p>
+        <p th:text="${product.getStatus()}"></p>
+        <p>VAT Rate:</p>
+        <p th:text="${product.getVatRate()}"></p>
+        <p>Associated orders:</p>
+        <ul th:each="orderHasProd: ${product.getOrderHasProducts()}">
+            <li th:text="${orderHasProd}"></li>
+        </ul>
+    </div>
+</body>
+</html>

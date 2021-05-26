@@ -1,61 +1,60 @@
 package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.math.BigDecimal;
 
 @Entity
 public class OrderHasProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column
-    private double quantity;
-    @Column
-    private double priceHt;
+    private Long id;
+
+    @Min(0)
+    @Column(nullable = false)
+    private int quantity;
+
+    @Min(0)
+    @Column(nullable = false)
+    private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "order_id")
     private Order order;
+
     @ManyToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     public OrderHasProduct() {
     }
 
-    public OrderHasProduct( double quantity, double priceHt, Order order, Product product) {
-
-        this.quantity = quantity;
-        this.priceHt = priceHt;
-        this.order = order;
-        this.product = product;
+    public Long getId() {
+        return this.id;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public int getQuantity() {
+        return this.quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public double getPriceHt() {
-        return priceHt;
+    public BigDecimal getPrice() {
+        return this.price;
     }
 
-    public void setPriceHt(double priceHt) {
-        this.priceHt = priceHt;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Order getOrder() {
-        return order;
+        return this.order;
     }
 
     public void setOrder(Order order) {
@@ -63,10 +62,21 @@ public class OrderHasProduct {
     }
 
     public Product getProduct() {
-        return product;
+        return this.product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("OrderHasProduct: ");
+        sb.append(this.quantity)
+        .append(" of ")
+        .append(this.product.toString())
+        .append(" in order: ")
+        .append(this.order.toString());
+        return sb.toString();
     }
 }

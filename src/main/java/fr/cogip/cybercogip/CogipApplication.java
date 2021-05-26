@@ -1,11 +1,19 @@
 package fr.cogip.cybercogip;
 
-import fr.cogip.cybercogip.data.CustomerRepository;
-import fr.cogip.cybercogip.models.Address;
-import fr.cogip.cybercogip.models.Customer;
+import fr.cogip.cybercogip.models.*;
+import fr.cogip.cybercogip.models.enums.OrderStatus;
+import fr.cogip.cybercogip.models.enums.ProductStatus;
+import fr.cogip.cybercogip.models.enums.Role;
+import fr.cogip.cybercogip.models.enums.Vat;
+import fr.cogip.cybercogip.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class CogipApplication {
@@ -14,24 +22,68 @@ public class CogipApplication {
 		SpringApplication.run(CogipApplication.class, args);
 	}
 
-
-	public CommandLineRunner demo(CustomerRepository repo) {
+//	Uncomment just once to populate the DB with a very small sample of data
+//	@Bean
+	public CommandLineRunner populateDb(CustomerRepository customerRepo, AddressRepository addressRepo,
+										OrderRepository orderRepo, ProductRepository productRepo,
+										CategoryRepository categoryRepo, UserRepository userRepo,
+										OrderHasProductRepository orderHasProductRepo) {
 		return (arg) -> {
 
+			Address address1 = new Address();
+			address1.setAddress1("5 rue du Troubadour");
+			address1.setAddress2("2e gauche");
+			address1.setCity("Rennes");
+			address1.setZipCode("35000");
+			address1.setCountry("France");
+			address1 = addressRepo.save(address1);
+
 			Customer customer1 = new Customer();
-			customer1.setFirstName("sando");
-			customer1.setLastName("mangara");
+			customer1.setName("sando");
 			customer1.setEmail("sando@yahoo.fr");
-			customer1.setInvoiceAddress(new Address("2 rue", "Georges clemenceaux", "3500", "France"));
-			customer1.setShippingAddress(new Address("2 rue", "Georges clemenceaux", "3500", "France"));
-			customer1.setPhoneNumber("9");
+			customer1.setAddress(address1);
+			customer1.setPhoneNumber("0322987405");
+			customer1 = customerRepo.save(customer1);
 
+			Category category1 = new Category();
+			category1.setLabel("Bureaux");
+			category1 = categoryRepo.save(category1);
 
-			// Save into DB
-			repo.save(customer1);
+			Product product1 = new Product();
+			product1.setName("Blörnberg");
+			product1.setDescription("Un magnifique bureau d'angle suédois");
+			product1.setCategory(category1);
+			product1.setPrice(new BigDecimal("799.99"));
+			product1.setStock(5);
+			product1.setVatRate(Vat.REGULAR);
+			product1.setStatus(ProductStatus.AVAILABLE);
+			product1 = productRepo.save(product1);
+
+			User user1 = new User();
+			user1.setFirstName("Jean-Michel");
+			user1.setLastName("Doudoux");
+			user1.setEmail("jm.doudoux@jug.bzh");
+			user1.setUsername("doodoo");
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
+					BCryptPasswordEncoder.BCryptVersion.$2A, 31);
+			user1.setPassword(passwordEncoder.encode("P@ssword!"));
+			user1.setRole(Role.ADMIN);
+			user1 = userRepo.save(user1);
+
+			Order order1 = new Order();
+			order1.setDateOfCreation(LocalDateTime.now());
+			order1.setReference("AABB45678");
+			order1.setStatus(OrderStatus.PENDING);
+			order1.setCustomer(customer1);
+			order1.setUser(user1);
+			order1 = orderRepo.save(order1);
+
+			OrderHasProduct orderHasProduct1 = new OrderHasProduct();
+			orderHasProduct1.setOrder(order1);
+			orderHasProduct1.setProduct(product1);
+			orderHasProduct1.setPrice(product1.getPrice());
+			orderHasProduct1.setQuantity(2);
+			orderHasProductRepo.save(orderHasProduct1);
 		};
-
-
 	}
-
 }

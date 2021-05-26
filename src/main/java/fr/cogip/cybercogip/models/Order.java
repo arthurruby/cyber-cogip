@@ -1,41 +1,51 @@
 package fr.cogip.cybercogip.models;
 
+import fr.cogip.cybercogip.models.enums.OrderStatus;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name="order")
+@Table(name = "order_table")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(nullable = false)
     @NotBlank
     @Size(max = 55)
+    @Column(nullable = false, length = 55)
     private String reference;
 
+    @Enumerated
     @Column(nullable = false)
-    @NotBlank
-    @Size(max = 55)
-    private String status;
+    private OrderStatus status;
 
+    @PastOrPresent
     @Column(name= "date_of_creation", nullable = false)
-    private LocalDate dateOfCreation;
+    private LocalDateTime dateOfCreation;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="id_customer", nullable = false)
+    @JoinColumn(name="id_customer")
     private  Customer customer;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderHasProduct> orderHasProducts;
+
     public Order() {
+        this.orderHasProducts = new ArrayList<>();
     }
 
-    public Order( String reference, String status, LocalDate dateOfCreation, User user, Customer customer) {
+    public Order( String reference, OrderStatus status, LocalDateTime dateOfCreation, User user, Customer customer) {
 
         this.reference = reference;
         this.status = status;
@@ -44,40 +54,40 @@ public class Order {
         this.customer = customer;
     }
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public String getReference() {
-        return reference;
+        return this.reference;
     }
 
     public void setReference(String reference) {
         this.reference = reference;
     }
 
-    public String getStatus() {
-        return status;
+    public OrderStatus getStatus() {
+        return this.status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
-    public LocalDate getDateOfCreation() {
-        return dateOfCreation;
+    public LocalDateTime getDateOfCreation() {
+        return this.dateOfCreation;
     }
 
-    public void setDateOfCreation(LocalDate dateOfCreation) {
+    public void setDateOfCreation(LocalDateTime dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(User user) {
@@ -85,10 +95,28 @@ public class Order {
     }
 
     public Customer getCustomer() {
-        return customer;
+        return this.customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public List<OrderHasProduct> getOrderHasProducts() {
+        return this.orderHasProducts;
+    }
+
+    public void setOrderHasProducts(List<OrderHasProduct> orderHasProducts) {
+        this.orderHasProducts = orderHasProducts;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Order #");
+        sb.append(this.reference).append(" placed by ")
+        .append(this.customer.toString())
+        .append(" and supervised by ")
+        .append(this.user.toString());
+        return sb.toString();
     }
 }
