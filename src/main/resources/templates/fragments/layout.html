@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div th:fragment="layout (frag)">
+
+    <header>
+      <div class="px-3 py-2 bg-dark text-white ">
+        <div class="container">
+          <div class="d-flex flex-row align-items-center justify-content-between">
+            <div>
+              <h1>Cyber-COGIP</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
+
+              <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small fs-4 text-center">
+                <li>
+                  <a href="#" class="nav-link text-white">
+                    <i class="bi bi-house"></i>
+                    <p>Home</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link text-white">
+                    <i class="bi bi-graph-up"></i>
+                    <p>Dashboard</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link text-white">
+                    <i class="bi bi-stickies"></i>
+                    <p>Orders</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link text-white">
+                    <i class="bi bi-book"></i>
+                    <p>Products</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link text-white">
+                    <i class="bi bi-people"></i>
+                    <p>Customers</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- place view elements here ! -->
+    <div class="d-flex flex-column justify-content-center align-items-center p-4">
+      <div th:replace="${frag}"></div>
+    </div>
+    <!-- end of view elements -->
+
+    <footer>
+      <div class="px-3 py-2 bg-dark text-white fixed-bottom">
+        <div class="container">
+          <div class="d-flex flex-row align-items-center justify-content-end">
+            <a href="https://github.com/arthurruby/cyber-cogip" class="text-white fs-4">
+              <i class="bi bi-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
