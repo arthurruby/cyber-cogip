@@ -1,6 +1,8 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 @Entity
 @Table(name="order")
@@ -9,21 +11,25 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private String reference;
 
-    @Column
+    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private String status;
 
-    @Column(name= "date_of_creation")
+    @Column(name= "date_of_creation", nullable = false)
     private LocalDate dateOfCreation;
 
     @ManyToOne
-    @JoinColumn(name="")
+    @JoinColumn(nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="id_customer")
+    @JoinColumn(name="id_customer", nullable = false)
     private  Customer customer;
 
     public Order() {

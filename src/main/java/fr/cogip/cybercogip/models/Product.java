@@ -1,4 +1,4 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 
 import javax.persistence.*;
@@ -20,8 +20,10 @@ public class Product {
     private double quantity;
     @Column
     private double priceHT;
+
     @Column(name="category")
-    private CategoryProduct category;
+    @ManyToOne
+    private ProductCategory category;
 
     @Embedded
     private Tva tva;
@@ -31,7 +33,7 @@ public class Product {
     public Product() {
     }
 
-    public Product( String reference, String name, String description, double quantity, double priceHT, CategoryProduct category, Tva tva) {
+    public Product( String reference, String name, String description, double quantity, double priceHT, ProductCategory category, Tva tva) {
         
         this.reference = reference;
         this.name = name;

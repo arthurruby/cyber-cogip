@@ -1,7 +1,7 @@
 package fr.cogip.cybercogip.services;
 
 import fr.cogip.cybercogip.data.CustomerRepository;
-import fr.cogip.cybercogip.entities.Customer;
+import fr.cogip.cybercogip.models.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

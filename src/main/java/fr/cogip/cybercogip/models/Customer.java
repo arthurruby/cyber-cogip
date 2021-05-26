@@ -1,6 +1,8 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -10,27 +12,42 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name="first_name", nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private String firstName;
 
-    @Column
+    @Column(name="last_name", nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private String lastName;
 
-    @Column
+    @Column(name="phone_number", nullable = false)
+    @NotBlank
+    @Size(max = 25)
     private  String phoneNumber;
 
     @Column
+    @NotBlank
+    @Size(max = 55)
     private  String email;
 
     @ManyToOne
+    @JoinColumn(name="invoice_adress", nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private Address invoiceAddress;
 
     @ManyToOne
+    @JoinColumn(name="shipping_adress)", nullable = false)
+    @NotBlank
+    @Size(max = 55)
     private  Address shippingAddress;
 
     @OneToMany(mappedBy = "customer")
-    Set<Order> orders;
+    private Set<Order> orders;
 
+    //constructors
     public Customer() {
     }
 

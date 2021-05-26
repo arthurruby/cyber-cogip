@@ -1,8 +1,7 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,10 +12,12 @@ public class Address {
 
     @Column(nullable = false)
     @NotBlank
-    @Size(max = 50) // @Size à appliquer partout au cas par cas
+    @Size(max = 50)
     private  String address1;
 
     @Column
+    @NotBlank
+    @Size(max = 50)
     private String address2;
 
     @Column(name = "zip_code", nullable = false, length = 6)
@@ -26,10 +27,12 @@ public class Address {
 
     @Column(nullable = false)
     @NotBlank
+    @Size(max = 50)
     private String city;
 
     @Column(nullable = false)
     @NotBlank
+    @Size(max = 50)
     private String country;
 
     public Address() {

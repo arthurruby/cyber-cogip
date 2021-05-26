@@ -1,4 +1,4 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 public class Role {
     private int id;

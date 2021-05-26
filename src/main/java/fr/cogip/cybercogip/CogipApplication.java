@@ -1,14 +1,11 @@
 package fr.cogip.cybercogip;
 
 import fr.cogip.cybercogip.data.CustomerRepository;
-import fr.cogip.cybercogip.entities.Address;
-import fr.cogip.cybercogip.entities.Customer;
-import fr.cogip.cybercogip.entities.User;
+import fr.cogip.cybercogip.models.Address;
+import fr.cogip.cybercogip.models.Customer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.concurrent.Callable;
 
 @SpringBootApplication
 public class CogipApplication {

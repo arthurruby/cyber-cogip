@@ -1,20 +1,25 @@
-package fr.cogip.cybercogip.entities;
+package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-public class CategoryProduct {
+public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
-    @Column
+
+    @Column(name="product_category", nullable = false)
+    @NotBlank
+    @Size(max = 30)
     private String title;
 
-    public CategoryProduct() {
+    public ProductCategory() {
     }
 
-    public CategoryProduct(String title) {
+    public ProductCategory(String title) {
         this.title = title;
     }
 
