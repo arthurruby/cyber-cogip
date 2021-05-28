@@ -44,6 +44,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false)
+    private Boolean isActive = true;
+
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
@@ -105,6 +108,14 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Boolean getActive() {
+        return this.isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public List<Order> getOrders() {
