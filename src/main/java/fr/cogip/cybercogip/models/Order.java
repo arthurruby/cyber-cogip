@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,8 @@ public class Order {
     private Long id;
 
     @NotBlank
-    @Size(max = 55)
-    @Column(nullable = false, length = 55)
+    @Size(min = 16, max = 16)
+    @Column(nullable = false, length = 16)
     private String reference;
 
     @Enumerated
@@ -29,6 +31,12 @@ public class Order {
     @PastOrPresent
     @Column(name= "date_of_creation", nullable = false)
     private LocalDateTime dateOfCreation;
+
+    @Transient
+    private BigDecimal totalPrice;
+
+    @Transient
+    private BigDecimal totalPriceWithVat;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -43,6 +51,8 @@ public class Order {
 
     public Order() {
         this.orderHasProducts = new ArrayList<>();
+        this.totalPrice = new BigDecimal("00.00");
+        this.totalPriceWithVat = new BigDecimal("00.00");
     }
 
     public Order( String reference, OrderStatus status, LocalDateTime dateOfCreation, User user, Customer customer) {
@@ -66,8 +76,26 @@ public class Order {
         return this.reference;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setReference() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.customer.getName().substring(0,3).toUpperCase())
+                .append('-')
+                .append(this.user.getUsername().substring(0,3).toUpperCase())
+                .append('-')
+                .append(String.valueOf(this.dateOfCreation.getYear()).substring(2));
+        if (this.dateOfCreation.getMonth().getValue() < 10) {
+            sb.append('0');
+        }
+        sb.append(this.dateOfCreation.getMonth().getValue());
+        if (this.dateOfCreation.getDayOfMonth() < 10) {
+            sb.append('0');
+        }
+        sb.append(this.dateOfCreation.getDayOfMonth());
+        if (this.dateOfCreation.getHour() < 10) {
+            sb.append('0');
+        }
+        sb.append(this.dateOfCreation.getHour());
+        this.reference = sb.toString();
     }
 
     public OrderStatus getStatus() {
@@ -84,6 +112,29 @@ public class Order {
 
     public void setDateOfCreation(LocalDateTime dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
+    }
+
+    public BigDecimal getTotalPrice() {
+        if (!this.orderHasProducts.isEmpty()){
+            for (OrderHasProduct orderHasProduct : this.orderHasProducts){
+                this.totalPrice = this.totalPrice.add(orderHasProduct.getPrice()
+                                .multiply(BigDecimal.valueOf(orderHasProduct.getQuantity())));
+            }
+        }
+        return this.totalPrice.setScale(2, RoundingMode.UP);
+    }
+
+    public BigDecimal getTotalPriceWithVat() {
+        if (!this.orderHasProducts.isEmpty()){
+            for (OrderHasProduct orderHasProduct : this.orderHasProducts){
+                this.totalPriceWithVat = this.totalPriceWithVat.add(
+                        orderHasProduct.getPrice().add(
+                                orderHasProduct.getPrice().multiply(
+                                        orderHasProduct.getProduct().getVatRate().getValue()))
+                        .multiply(BigDecimal.valueOf(orderHasProduct.getQuantity())));
+            }
+        }
+        return this.totalPriceWithVat.setScale(2, RoundingMode.UP);
     }
 
     public User getUser() {

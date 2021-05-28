@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class User implements Serializable {
@@ -63,7 +64,7 @@ public class User implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toLowerCase(Locale.ROOT);
     }
 
     public String getEmail() {
@@ -71,7 +72,7 @@ public class User implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase(Locale.ROOT);
     }
 
     public String getPassword() {

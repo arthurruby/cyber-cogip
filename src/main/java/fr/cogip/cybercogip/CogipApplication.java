@@ -39,8 +39,8 @@ public class CogipApplication {
 			address1 = addressRepo.save(address1);
 
 			Customer customer1 = new Customer();
-			customer1.setName("sando");
-			customer1.setEmail("sando@yahoo.fr");
+			customer1.setName("SOFRATEC & Associés");
+			customer1.setEmail("contact@sofratec.fr");
 			customer1.setAddress(address1);
 			customer1.setPhoneNumber("0322987405");
 			customer1 = customerRepo.save(customer1);
@@ -48,6 +48,10 @@ public class CogipApplication {
 			Category category1 = new Category();
 			category1.setLabel("Bureaux");
 			category1 = categoryRepo.save(category1);
+
+			Category category2 = new Category();
+			category2.setLabel("Fauteuils de bureau");
+			category2 = categoryRepo.save(category2);
 
 			Product product1 = new Product();
 			product1.setName("Blörnberg");
@@ -59,11 +63,21 @@ public class CogipApplication {
 			product1.setStatus(ProductStatus.AVAILABLE);
 			product1 = productRepo.save(product1);
 
+			Product product2 = new Product();
+			product2.setName("Fauteuil Recaro Sport+");
+			product2.setDescription("Un fauteuil de bureau de compétition");
+			product2.setCategory(category2);
+			product2.setPrice(new BigDecimal("195.50"));
+			product2.setStock(10);
+			product2.setVatRate(Vat.REGULAR);
+			product2.setStatus(ProductStatus.AVAILABLE);
+			product2 = productRepo.save(product2);
+
 			User user1 = new User();
 			user1.setFirstName("Jean-Michel");
 			user1.setLastName("Doudoux");
-			user1.setEmail("jm.doudoux@jug.bzh");
-			user1.setUsername("doodoo");
+			user1.setEmail("jm.DOudoux@jug.bzh");
+			user1.setUsername("dooDOo");
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
 					BCryptPasswordEncoder.BCryptVersion.$2A, 31);
 			user1.setPassword(passwordEncoder.encode("P@ssword!"));
@@ -72,10 +86,10 @@ public class CogipApplication {
 
 			Order order1 = new Order();
 			order1.setDateOfCreation(LocalDateTime.now());
-			order1.setReference("AABB45678");
 			order1.setStatus(OrderStatus.PENDING);
 			order1.setCustomer(customer1);
 			order1.setUser(user1);
+			order1.setReference();
 			order1 = orderRepo.save(order1);
 
 			OrderHasProduct orderHasProduct1 = new OrderHasProduct();
@@ -84,6 +98,13 @@ public class CogipApplication {
 			orderHasProduct1.setPrice(product1.getPrice());
 			orderHasProduct1.setQuantity(2);
 			orderHasProductRepo.save(orderHasProduct1);
+
+			OrderHasProduct orderHasProduct2 = new OrderHasProduct();
+			orderHasProduct2.setOrder(order1);
+			orderHasProduct2.setProduct(product2);
+			orderHasProduct2.setPrice(product2.getPrice());
+			orderHasProduct2.setQuantity(3);
+			orderHasProductRepo.save(orderHasProduct2);
 		};
 	}
 }

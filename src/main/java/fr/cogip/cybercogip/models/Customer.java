@@ -1,11 +1,13 @@
 package fr.cogip.cybercogip.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class Customer {
@@ -14,12 +16,13 @@ public class Customer {
     private Long id;
 
     @NotBlank
-    @Size(max = 55)
-    @Column(name="name", nullable = false)
+    @Size(min = 3, max = 55)
+    @Column(name="name", nullable = false, length = 55)
     private String name;
 
     @NotBlank
     @Size(min = 10, max = 13)
+    @Digits(integer = 13, fraction = 0)
     @Column(name="phone_number", nullable = false, length = 13)
     private  String phoneNumber;
 
@@ -75,7 +78,7 @@ public class Customer {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase(Locale.ROOT);
     }
 
     public Address getAddress() {
@@ -96,7 +99,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append(this.name).append(" (")
         .append(this.email).append(')');
         return sb.toString();
