@@ -28,7 +28,7 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
     }
 
     @Bean
-    GrantedAuthoritiesMapper authoritiesMapper(){
+    GrantedAuthoritiesMapper authoritiesMapper() {
         SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
         mapper.setConvertToUpperCase(true);
         mapper.setDefaultAuthority(Role.SALES.name());
@@ -36,9 +36,10 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(this.userDetailsService);
+//        We use BCrypt as our password encoder. It's set on its version 2a and the greatest strength possible
         provider.setPasswordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 31));
         provider.setAuthoritiesMapper(authoritiesMapper());
         return provider;
@@ -52,11 +53,17 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+//                Everyone can access the "/" home page and static resources (needed to display pages properly).
                 .authorizeRequests()
                 .antMatchers("/", "/css/*", "/js/*").permitAll()
+//                For any other request, users have to be authenticated, regardless of their role.
                 .anyRequest().authenticated()
+//                For now we use the basic http login. We'll switch to a more convenient HTML Form login
                 .and().httpBasic()
+//                We provide a logout support
                 .and().logout()
+//                If a user is authenticated but doesn't have the required Role to access a web page, he/she'll
+//                be redirected to the home page instead of seeing an ugly 401 Authorization Denied page.
                 .and().exceptionHandling().accessDeniedPage("/");
     }
 }

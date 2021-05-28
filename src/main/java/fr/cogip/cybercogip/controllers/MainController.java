@@ -52,7 +52,6 @@ public class MainController {
     }
 
     @GetMapping("/test")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ACCOUNTING', 'ROLE_SALES', 'ROLE_MANAGEMENT')")
     public String testPage(Model model){
         return "test-page";
     }

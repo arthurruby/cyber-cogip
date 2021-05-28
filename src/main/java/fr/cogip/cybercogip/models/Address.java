@@ -1,9 +1,11 @@
 package fr.cogip.cybercogip.models;
 
+import fr.cogip.cybercogip.security.AttributeEncryptor;
+
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 public class Address {
@@ -12,31 +14,34 @@ public class Address {
     private Long id;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 55)
     @Column(nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private  String address1;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 55)
+    @Convert(converter = AttributeEncryptor.class)
     private String address2;
 
     @NotBlank
-    @Size(min = 5, max = 6)
-    @Column(name = "zip_code", nullable = false, length = 6)
+    @Size(min = 5)
+    @Digits(integer = 6, fraction = 0)
+    @Column(name = "zip_code", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String zipCode;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 55)
     @Column(nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String city;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 55)
     @Column(nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String country;
-
-//    @OneToMany(mappedBy = "shipping_address")
-//    private List<Customer> customers;
 
     public Address() {
     }
