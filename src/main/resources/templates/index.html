@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>COGIP Bonjour</title>
-</head>
+<head th:replace="/fragments/layout :: head(title='Interface Cogip')"></head>
+
 <body>
+<header th:replace="/fragments/layout :: header"></header>
+
 <h1>COGIP Bonjour!</h1>
     <h3>Détail User:</h3>
     <div th:each="user : ${users}">
@@ -138,5 +138,7 @@
             <li th:text="${orderHasProd}"></li>
         </ul>
     </div>
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
 </body>
 </html>
