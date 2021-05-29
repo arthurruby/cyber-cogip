@@ -51,14 +51,24 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String getLogoutPage(){
+        return "index";
+    }
+
     @GetMapping("/test")
-    public String testPage(Model model){
+    public String getTestPage(Model model){
         return "test-page";
     }
 
     @GetMapping("/test2")
     @PreAuthorize("hasAnyRole('ROLE_ACCOUNTING', 'ROLE_SALES', 'ROLE_MANAGEMENT')")
-    public String testPage2(Model model){
+    public String getTestPage2(Model model){
         return "test-page";
     }
 }

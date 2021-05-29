@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>COGIP Bonjour</title>
 </head>
 <body>
-<h1>COGIP Bonjour!</h1>
+    <ul class="navbar-nav">
+        <li class="nav-item" sec:authorize="isAnonymous()">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+            Connected as:
+            <span sec:authentication="name"></span>
+             -
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+            This will only be displayed if authenticated user has role ROLE_ADMIN.
+        </li>
+        <li th:if="${error}">
+            <span th:text="${error}"></span>
+            :
+            <span th:text="${status}"></span>
+        </li>
+    </ul>
+    <div th:if="${logoutMessage}">
+        <div class="alert alert-success">
+            <p th:text="${logoutMessage}"></p>
+        </div>
+    </div>
+    <h1>COGIP Bonjour!</h1>
     <h3>Détail User:</h3>
     <div th:each="user : ${users}">
         <p>Username:

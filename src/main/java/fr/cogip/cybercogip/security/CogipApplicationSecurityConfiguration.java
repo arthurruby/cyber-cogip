@@ -1,4 +1,4 @@
-package fr.cogip.cybercogip;
+package fr.cogip.cybercogip.security;
 
 import fr.cogip.cybercogip.models.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -58,12 +59,15 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
                 .antMatchers("/", "/css/*", "/js/*").permitAll()
 //                For any other request, users have to be authenticated, regardless of their role.
                 .anyRequest().authenticated()
-//                For now we use the basic http login. We'll switch to a more convenient HTML Form login
-                .and().httpBasic()
-//                We provide a logout support
-                .and().logout()
-//                If a user is authenticated but doesn't have the required Role to access a web page, he/she'll
-//                be redirected to the home page instead of seeing an ugly 401 Authorization Denied page.
-                .and().exceptionHandling().accessDeniedPage("/");
+                .and()
+//                We use a convenient HTML Form login accessible by anyone
+                .formLogin().loginPage("/login").permitAll()
+                .and()
+//                We provide a logout support that clears auth & resets http session
+                .logout().clearAuthentication(true).invalidateHttpSession(true)
+//                We map the logout URL
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                We provide the web page to be redirected to after a successful logout:
+                .logoutSuccessUrl("/").permitAll();
     }
 }

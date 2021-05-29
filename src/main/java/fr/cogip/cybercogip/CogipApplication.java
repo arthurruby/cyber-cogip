@@ -22,6 +22,14 @@ public class CogipApplication {
 		SpringApplication.run(CogipApplication.class, args);
 	}
 
+//	TODO Créer des AttributeEncryptors différents avec différentes clés pour chaque model
+//	TODO Créer une base de données esclave pour la redondance
+//	TODO Créer une fonction d'anonymisation d'un client
+//	TODO Gérer le login par formulaire
+//	TODO Gestion des logs
+
+
+
 //	Uncomment just once to populate the DB with a very small sample of data
 //	@Bean
 	public CommandLineRunner populateDb(CustomerRepository customerRepo, AddressRepository addressRepo,
