@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-package fr.cogip.cybercogip;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class CogipApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(CogipApplication.class, args);
-	}
-
-}
-=======
 package fr.cogip.cybercogip;
 
 import fr.cogip.cybercogip.models.*;
@@ -123,4 +108,3 @@ public class CogipApplication {
 		};
 	}
 }
->>>>>>> ab60738ea11d89979d064d7eda2d11c17eeeb60c
