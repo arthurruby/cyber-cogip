@@ -1,13 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <div th:fragment="layout (frag)">
 
-    <header>
+<!-- ========================================= Notes =============================================-->
+
+<!-- === Lines to insert into a view to display the ThymeLeaf main layout === -->
+  <!-- HTML : <html th:replace="layout :: html"></html> -->
+  <!-- HEAD : <head th:replace="layout :: head(title="customizedTitle")"></head> -->
+  <!-- HEADER : <header th:replace="layout :: header"></header> -->
+  <!-- FOOTER : <footer th:replace="layout :: footer"></footer> -->
+  <!-- SCRIPTS (into and at the end of the body tag) : <div th:replace="layout :: scripts></div> -->
+
+<!-- Bootstrap features enabled -->
+
+<!-- IMPORTANT : add following html tag in your html view file to enable ThymeLeaf-->
+<!-- <html lang="fr" xmlns:th="http://www.thymeleaf.org"> -->
+
+<!-- see index.html for sample -->
+<!-- ============================================================================================-->
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head (title)">
+  <meta charset="UTF-8">
+  <title th:text="${title}"></title>
+  <!-- configs -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <header th:fragment="header">
       <div class="px-3 py-2 bg-dark text-white ">
         <div class="container">
           <div class="d-flex flex-row align-items-center justify-content-between">
@@ -52,16 +76,10 @@
           </div>
         </div>
       </div>
-
     </header>
 
-    <!-- place view elements here ! -->
-    <div class="d-flex flex-column justify-content-center align-items-center p-4">
-      <div th:replace="${frag}"></div>
-    </div>
-    <!-- end of view elements -->
 
-    <footer>
+    <footer th:fragment = "footer">
       <div class="px-3 py-2 bg-dark text-white fixed-bottom">
         <div class="container">
           <div class="d-flex flex-row align-items-center justify-content-end">
@@ -72,6 +90,19 @@
         </div>
       </div>
     </footer>
-  </div>
+
+    <div th:fragment="scripts">
+      <!-- Bootstrap JS scripts (jQuery, Popper, Bootstrap js) CDN -->
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+              integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+              crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+              integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+              crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+              integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+              crossorigin="anonymous"></script>
+    </div>
+
 </body>
 </html>
