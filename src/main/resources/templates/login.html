@@ -1,9 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"lang="en">
-<head>
-    <title>COGIP Login</title>
-</head>
+<head th:replace="/fragments/layout :: head(title='Login Cogip')"></head>
+
 <body>
+<header th:replace="/fragments/layout :: header"></header>
     <div class="container main-content">
         <h3>COGIP Employee Login</h3>
         <form th:action="@{/login}" method="post">
@@ -31,5 +31,8 @@
             </div>
         </form>
     </div>
+
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
 </body>
 </html>
