@@ -1,5 +1,7 @@
 package fr.cogip.cybercogip.models;
 
+import fr.cogip.cybercogip.security.AttributeEncryptor;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
@@ -17,18 +19,21 @@ public class Customer {
 
     @NotBlank
     @Size(min = 3, max = 55)
-    @Column(name="name", nullable = false, length = 55)
+    @Column(name="name", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String name;
 
     @NotBlank
-    @Size(min = 10, max = 13)
+//    @Size(min = 10, max = 13)
     @Digits(integer = 13, fraction = 0)
-    @Column(name="phone_number", nullable = false, length = 13)
+    @Column(name="phone_number", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private  String phoneNumber;
 
     @Email
     @Size(max = 55)
-    @Column(length = 55, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private  String email;
 
     @ManyToOne

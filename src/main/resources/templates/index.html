@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="/fragments/layout :: head(title='Interface Cogip')"></head>
 
 <body>
 <header th:replace="/fragments/layout :: header"></header>
-
+<ul>
+    <li sec:authorize="hasRole('ROLE_ADMIN')">
+        This will only be displayed if authenticated user has role ROLE_ADMIN.
+    </li>
+</ul>
+<div th:if="${logoutMessage}">
+    <div class="alert alert-success">
+        <p th:text="${logoutMessage}"></p>
+    </div>
+</div>
 <h1>COGIP Bonjour!</h1>
     <h3>Détail User:</h3>
     <div th:each="user : ${users}">

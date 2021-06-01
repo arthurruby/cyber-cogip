@@ -16,7 +16,7 @@
 <!-- ============================================================================================-->
 
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:fragment="head (title)">
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
@@ -40,6 +40,21 @@
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
 
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small fs-4 text-center">
+                        <li class="nav-item text-white" sec:authorize="isAnonymous()">
+                            <a class="nav-link text-white" th:href="@{/login}">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                                <p>Login</p>
+                            </a>
+                        </li>
+                        <li class="nav-item text-white" sec:authorize="isAuthenticated()">
+                            <a class="nav-link text-white" th:href="@{/logout}">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <p>
+                                    <span sec:authentication="name"></span>
+                                     - Logout
+                                </p>
+                            </a>
+                        </li>
                         <li>
                             <a href="#" class="nav-link text-white">
                                 <i class="bi bi-house"></i>

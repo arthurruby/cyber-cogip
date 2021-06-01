@@ -4,13 +4,12 @@ import fr.cogip.cybercogip.models.Customer;
 import fr.cogip.cybercogip.models.Product;
 import fr.cogip.cybercogip.models.User;
 import fr.cogip.cybercogip.repositories.*;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -50,5 +49,26 @@ public class MainController {
         model.addAttribute("products", products);
 
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String getLogoutPage(){
+        return "index";
+    }
+
+    @GetMapping("/test")
+    public String getTestPage(Model model){
+        return "test-page";
+    }
+
+    @GetMapping("/test2")
+    @PreAuthorize("hasAnyRole('ROLE_ACCOUNTING', 'ROLE_SALES', 'ROLE_MANAGEMENT')")
+    public String getTestPage2(Model model){
+        return "test-page";
     }
 }
