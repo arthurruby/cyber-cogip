@@ -1,6 +1,7 @@
 package fr.cogip.cybercogip.models;
 
 import fr.cogip.cybercogip.models.enums.Role;
+import fr.cogip.cybercogip.security.AttributeEncryptor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,33 +17,40 @@ public class User implements Serializable {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 25, message = "Username must be between 3 and 25 letters long")
-    @Column(length = 25, nullable = false, unique = true)
+    @Size(min = 3, max = 55, message = "Username must be between 3 and 55 letters long")
+    @Column(nullable = false, unique = true)
+    @Convert(converter = AttributeEncryptor.class)
     private String username;
 
     @NotBlank
-    @Size(min = 5, max = 50)
+    @Size(min = 5, max = 55)
     @Email
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
+    @Convert(converter = AttributeEncryptor.class)
     private String email;
 
     @NotBlank
     // BCrypt hashes are 60 chars long
-    @Size(min = 60, max = 60)
-    @Column(nullable = false, length = 60)
+    @Size(min = 8, max = 60)
+    @Column(nullable = false)
     private String password;
 
-    @Size(max = 50)
-    @Column(name = "first_name", length = 50, nullable = false)
+    @Size(max = 55)
+    @Column(name = "first_name", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String firstName;
 
-    @Size(max = 50)
-    @Column(name = "last_name", length = 50, nullable = false)
+    @Size(max = 55)
+    @Column(name = "last_name", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String lastName;
 
     @Enumerated
     @Column(nullable = false)
     private Role role;
+
+    @Column(nullable = false)
+    private Boolean isActive = true;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
@@ -105,6 +113,14 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Boolean getActive() {
+        return this.isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public List<Order> getOrders() {
