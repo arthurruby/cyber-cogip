@@ -22,20 +22,18 @@ public class CogipApplication {
 		SpringApplication.run(CogipApplication.class, args);
 	}
 
-//	TODO Créer des AttributeEncryptors différents avec différentes clés pour chaque model
-//	TODO Créer une base de données esclave pour la redondance
-//	TODO Créer une fonction d'anonymisation d'un client
-//	TODO Gérer le login par formulaire
-//	TODO Gestion des logs
+	// TODO Créer des AttributeEncryptors différents avec différentes clés pour
+	// chaque model
+	// TODO Créer une base de données esclave pour la redondance
+	// TODO Créer une fonction d'anonymisation d'un client
+	// TODO Gérer le login par formulaire
+	// TODO Gestion des logs
 
-
-
-//	Uncomment just once to populate the DB with a very small sample of data
-//	@Bean
+	// Uncomment just once to populate the DB with a very small sample of data
+	// @Bean
 	public CommandLineRunner populateDb(CustomerRepository customerRepo, AddressRepository addressRepo,
-										OrderRepository orderRepo, ProductRepository productRepo,
-										CategoryRepository categoryRepo, UserRepository userRepo,
-										OrderHasProductRepository orderHasProductRepo) {
+			OrderRepository orderRepo, ProductRepository productRepo, CategoryRepository categoryRepo,
+			UserRepository userRepo, OrderHasProductRepository orderHasProductRepo) {
 		return (arg) -> {
 
 			Address address1 = new Address();
@@ -86,8 +84,7 @@ public class CogipApplication {
 			user1.setLastName("Doudoux");
 			user1.setEmail("jm.DOudoux@cogip.fr");
 			user1.setUsername("dooDOo");
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
-					BCryptPasswordEncoder.BCryptVersion.$2A, 31);
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 31);
 			user1.setPassword(passwordEncoder.encode("P@ssword!"));
 			user1.setRole(Role.ADMIN);
 			user1 = userRepo.save(user1);
