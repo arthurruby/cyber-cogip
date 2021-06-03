@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: head(title='Update User')"></head>
+<body>
+    <header th:replace="/fragments/layout :: header"></header>
+    <h3>
+        Update user:
+        <span th:text="${user}"></span>
+    </h3>
+    <form action="#" th:action="@{/users/{id}/update(id=${user.getId()})}" th:object="${user}" method="post">
+        <div th:replace="user/user-form :: user-form-fragment"></div>
+    </form>
+    <footer th:replace="/fragments/layout :: footer"></footer>
+    <div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>

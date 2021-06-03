@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+tml lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: head(title='COGIP Users')"></head>
+<body>
+<header th:replace="/fragments/layout :: header"></header>
+<main>
+    <h3>Users Management</h3>
+    <div th:each="user : ${users}">
+        <a href="#" th:href="@{/users/{id}(id=${user.getId()})}">
+            <p>Username:
+                <span th:text="${user.getUsername()}"></span>
+            </p>
+        </a>
+        <p>First Name:
+            <span th:text="${user.getFirstName()}"></span>
+        </p>
+        <p>Last Name:
+            <span th:text="${user.getLastName()}"></span>
+        </p>
+        <p>Email:
+            <span th:text="${user.getEmail()}"></span>
+        </p>
+        <p>BCrypt Hashed Password:
+            <span th:text="${user.getPassword()}"></span>
+        </p>
+        <p>Role:
+            <span th:text="${user.getRole()}"></span>
+        </p>
+        <p>Associated orders:
+        </p>
+        <ul th:each="order: ${user.getOrders()}">
+            <li th:text="${order}"></li>
+        </ul>
+    </div>
+</main>
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>

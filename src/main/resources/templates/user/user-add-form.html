@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: head(title='Add New User')"></head>
+<body>
+    <header th:replace="/fragments/layout :: header"></header>
+    <div class="container main-content">
+        <h3>Create a new User</h3>
+        <form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
+            <div th:replace="user/user-form :: user-form-fragment"></div>
+        </form>
+        <footer th:replace="/fragments/layout :: footer"></footer>
+        <div th:replace="/fragments/layout :: scripts"></div>
+    </div>
+</body>
+</html>

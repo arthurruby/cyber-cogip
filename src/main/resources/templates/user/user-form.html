@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: head(title='COGIP Users')"></head>
+<body>
+<main>
+        <div th:fragment="user-form-fragment">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    Username:
+                    <input class="form-control" type="text" th:field="*{username}"/>
+                </label>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    Password:
+                    <input class="form-control" type="password" th:field="*{password}"/>
+                </label>
+            </div>
+            <div class="form-group row">
+            <label class="col-sm-2 col-form-label">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                Email:
+                <input class="form-control" type="email" th:field="*{email}"/>
+            </label>
+            </div>
+            <div class="form-group row">
+            <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    Firstname:
+                    <input class="form-control" type="text" th:field="*{firstName}"/>
+                </label>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    Lastname:
+                    <input class="form-control" type="text" th:field="*{lastName}"/>
+                </label>
+            </div>
+            <div>
+                <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                    Role:
+                    <select class="form-select" name="role" th:field="*{role}">
+                        <option th:each="roleOpt : ${T(fr.cogip.cybercogip.models.enums.Role).values()}"
+                                th:value="${roleOpt.name().toUpperCase()}"
+                                th:text="${roleOpt}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></div>
+                    Active:
+                    <input class="form-check-input" type="checkbox" th:field="*{active}"/>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Send!</button>
+    </div>
+</main>
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>

@@ -86,9 +86,7 @@ public class CogipApplication {
 			user1.setLastName("Doudoux");
 			user1.setEmail("jm.DOudoux@cogip.fr");
 			user1.setUsername("dooDOo");
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
-					BCryptPasswordEncoder.BCryptVersion.$2A, 31);
-			user1.setPassword(passwordEncoder.encode("P@ssword!"));
+			user1.setPassword("P@ssword!");
 			user1.setRole(Role.ADMIN);
 			user1 = userRepo.save(user1);
 
@@ -97,7 +95,7 @@ public class CogipApplication {
 			user2.setLastName("Ranu");
 			user2.setEmail("jc.ranu@cogip.fr");
 			user2.setUsername("ranu");
-			user2.setPassword(passwordEncoder.encode("P@ssword!"));
+			user2.setPassword("P@ssword!");
 			user2.setRole(Role.ACCOUNTING);
 			user2 = userRepo.save(user2);
 
