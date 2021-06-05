@@ -87,6 +87,12 @@
                                     <p>Customers</p>
                                 </a>
                             </li>
+                            <li class="nav-item text-white" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
+                                <a href="#" class="nav-link text-white" th:href="@{/users} ">
+                                    <i class="bi bi-people"></i>
+                                    <p>Employees</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

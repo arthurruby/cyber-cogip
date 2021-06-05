@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,13 +20,6 @@ public class CogipApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CogipApplication.class, args);
 	}
-
-	// TODO Créer des AttributeEncryptors différents avec différentes clés pour
-	// chaque model
-	// TODO Créer une base de données esclave pour la redondance
-	// TODO Créer une fonction d'anonymisation d'un client
-	// TODO Gérer le login par formulaire
-	// TODO Gestion des logs
 
 	// Uncomment just once to populate the DB with a very small sample of data
 	// @Bean
@@ -84,8 +76,7 @@ public class CogipApplication {
 			user1.setLastName("Doudoux");
 			user1.setEmail("jm.DOudoux@cogip.fr");
 			user1.setUsername("dooDOo");
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 31);
-			user1.setPassword(passwordEncoder.encode("P@ssword!"));
+			user1.setPassword("P@ssword!");
 			user1.setRole(Role.ADMIN);
 			user1 = userRepo.save(user1);
 
@@ -94,7 +85,7 @@ public class CogipApplication {
 			user2.setLastName("Ranu");
 			user2.setEmail("jc.ranu@cogip.fr");
 			user2.setUsername("ranu");
-			user2.setPassword(passwordEncoder.encode("P@ssword!"));
+			user2.setPassword("P@ssword!");
 			user2.setRole(Role.ACCOUNTING);
 			user2 = userRepo.save(user2);
 

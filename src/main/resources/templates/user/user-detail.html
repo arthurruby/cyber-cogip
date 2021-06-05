@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="/fragments/layout :: head(title='COGIP User Detail')"></head>
+    <body>
+    <header th:replace="/fragments/layout :: header"></header>
+    <main>
+        <h3 th:text="'Details about ' + ${user.getUsername()} +':'"></h3>
+            <p>Username:
+                <span th:text="${user.getUsername()}"></span>
+            </p>
+            <p>First Name:
+                <span th:text="${user.getFirstName()}"></span>
+            </p>
+            <p>Last Name:
+                <span th:text="${user.getLastName()}"></span>
+            </p>
+            <p>Email:
+                <span th:text="${user.getEmail()}"></span>
+            </p>
+            <p>BCrypt Hashed Password:
+                <span th:text="${user.getPassword()}"></span>
+            </p>
+            <p>Role:
+                <span th:text="${user.getRole()}"></span>
+            </p>
+            <p>Associated orders:
+            </p>
+            <ul th:each="order: ${user.getOrders()}">
+                <li th:text="${order}"></li>
+            </ul>
+            <a class="btn btn-secondary my-3" th:href="@{/users/{id}/update(id=${user.getId()})}">Edit</a>
+        </div>
+    </main>
+    <footer th:replace="/fragments/layout :: footer"></footer>
+    <div th:replace="/fragments/layout :: scripts"></div>
+    </body>
+</html>
