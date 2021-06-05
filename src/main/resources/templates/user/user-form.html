@@ -6,59 +6,55 @@
 <main>
         <div th:fragment="user-form-fragment">
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">
+                <label class="form-label">
                     <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                     Username:
                     <input class="form-control" type="text" th:field="*{username}"/>
                 </label>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">
+                <label class="form-label">
                     <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                     Password:
                     <input class="form-control" type="password" th:field="*{password}"/>
                 </label>
             </div>
+
             <div class="form-group row">
-            <label class="col-sm-2 col-form-label">
-                <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                Email:
-                <input class="form-control" type="email" th:field="*{email}"/>
-            </label>
-            </div>
-            <div class="form-group row">
-            <label class="col-sm-2 col-form-label">
-                    <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
-                    Firstname:
-                    <input class="form-control" type="text" th:field="*{firstName}"/>
+                <label class="form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    Email:
+                    <input class="form-control" type="email" th:field="*{email}"/>
                 </label>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">
-                    <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
-                    Lastname:
-                    <input class="form-control" type="text" th:field="*{lastName}"/>
-                </label>
-            </div>
-            <div>
-                <label class="col-sm-2 col-form-label">
                     <div class="alert alert-warning" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
-                    Role:
-                    <select class="form-select" name="role" th:field="*{role}">
+                    <label class="form-check-label" for="userRole">
+                        Role:
+                    </label>
+                    <select id="userRole" class="form-select" name="role" th:field="*{role}">
                         <option th:each="roleOpt : ${T(fr.cogip.cybercogip.models.enums.Role).values()}"
                                 th:value="${roleOpt.name().toUpperCase()}"
                                 th:text="${roleOpt}">
                         </option>
                     </select>
-                </label>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">
-                    <div class="alert alert-warning" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></div>
-                    Active:
-                    <input class="form-check-input" type="checkbox" th:field="*{active}"/>
+            <label class="form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    Firstname:
+                    <input class="form-control" type="text" th:field="*{firstName}"/>
+                </label>
+                <label class="form-label">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    Lastname:
+                    <input class="form-control" type="text" th:field="*{lastName}"/>
                 </label>
             </div>
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></div>
+                <div class="form-check">
+                    <label class="form-check-label" for="checkActive">
+                        Activate user
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="checkActive" th:field="*{active}">
+                </div>
             <button type="submit" class="btn btn-primary">Send!</button>
     </div>
 </main>
