@@ -40,7 +40,8 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(this.userDetailsService);
-//        We use BCrypt as our password encoder. It's set on its version 2a and the greatest strength possible
+        // We use BCrypt as our password encoder. It's set on its version 2a and the
+        // greatest strength possible
         provider.setPasswordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 31));
         provider.setAuthoritiesMapper(authoritiesMapper());
         return provider;
@@ -54,20 +55,19 @@ public class CogipApplicationSecurityConfiguration extends WebSecurityConfigurer
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                Everyone can access the "/" home page and static resources (needed to display pages properly).
-                .authorizeRequests()
-                .antMatchers("/", "/css/*", "/js/*").permitAll()
-//                For any other request, users have to be authenticated, regardless of their role.
-                .anyRequest().authenticated()
-                .and()
-//                We use a convenient HTML Form login accessible by anyone
-                .formLogin().loginPage("/login").permitAll()
-                .and()
-//                We provide a logout support that clears auth & resets http session
+                // Everyone can access the "/" home page and static resources (needed to display
+                // pages properly).
+                .authorizeRequests().antMatchers("/", "/css/*", "/js/*").permitAll()
+                // For any other request, users have to be authenticated, regardless of their
+                // role.
+                .anyRequest().authenticated().and()
+                // We use a convenient HTML Form login accessible by anyone
+                .formLogin().loginPage("/login").permitAll().and()
+                // We provide a logout support that clears auth & resets http session
                 .logout().clearAuthentication(true).invalidateHttpSession(true)
-//                We map the logout URL
+                // We map the logout URL
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                We provide the web page to be redirected to after a successful logout:
+                // We provide the web page to be redirected to after a successful logout:
                 .logoutSuccessUrl("/").permitAll();
     }
 }
