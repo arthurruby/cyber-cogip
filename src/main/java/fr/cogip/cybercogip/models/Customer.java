@@ -19,26 +19,26 @@ public class Customer {
 
     @NotBlank
     @Size(min = 3, max = 55)
-    @Column(name="name", nullable = false)
+    @Column(name = "name", nullable = false)
     @Convert(converter = AttributeEncryptor.class)
     private String name;
 
     @NotBlank
-//    @Size(min = 10, max = 13)
+    // @Size(min = 10, max = 13)
     @Digits(integer = 13, fraction = 0)
-    @Column(name="phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     @Convert(converter = AttributeEncryptor.class)
-    private  String phoneNumber;
+    private String phoneNumber;
 
     @Email
     @Size(max = 55)
     @Column(unique = true, nullable = false)
     @Convert(converter = AttributeEncryptor.class)
-    private  String email;
+    private String email;
 
-    @ManyToOne
-    @JoinColumn(name="address_id")
-    private  Address address;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
@@ -105,8 +105,7 @@ public class Customer {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(this.name).append(" (")
-        .append(this.email).append(')');
+        sb.append(this.name).append(" (").append(this.email).append(')');
         return sb.toString();
     }
 }

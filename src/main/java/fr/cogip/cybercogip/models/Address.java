@@ -17,7 +17,7 @@ public class Address {
     @Size(max = 55)
     @Column(nullable = false)
     @Convert(converter = AttributeEncryptor.class)
-    private  String address1;
+    private String address1;
 
     @NotBlank
     @Size(max = 55)
@@ -103,12 +103,9 @@ public class Address {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Address: ");
-        sb.append(address1).append(", ")
-        .append(address2).append(", ")
-        .append(zipCode).append(", ")
-        .append(city).append(", ")
-        .append(country);
+        final StringBuffer sb = new StringBuffer();
+        sb.append(address1).append(", ").append(address2).append(", ").append(zipCode).append(", ").append(city)
+                .append(", ").append(country);
         return sb.toString();
     }
 }

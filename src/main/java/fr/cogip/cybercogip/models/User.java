@@ -2,6 +2,7 @@ package fr.cogip.cybercogip.models;
 
 import fr.cogip.cybercogip.models.enums.Role;
 import fr.cogip.cybercogip.security.AttributeEncryptor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -88,7 +89,9 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
+                BCryptPasswordEncoder.BCryptVersion.$2A, 31);
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getFirstName() {

@@ -1,4 +1,3 @@
-
 <!-- ========================================= Notes =============================================-->
 
 <!-- === Lines to insert into a view to display the ThymeLeaf main layout === -->
@@ -16,107 +15,122 @@
 <!-- ============================================================================================-->
 
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head th:fragment="head (title)">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <title th:text="${title}"></title>
     <!-- configs -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
 </head>
 
 <body>
-<header th:fragment="header">
-    <div class="px-3 py-2 bg-dark text-white ">
-        <div class="container">
-            <div class="d-flex flex-row align-items-center justify-content-between">
-                <div>
-                    <h1>Cyber-COGIP</h1>
-                </div>
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
+    <header th:fragment="header">
+        <div class="px-3 py-2 bg-dark text-white ">
+            <div class="container">
+                <div class="d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        <h1>Cyber-COGIP</h1>
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
 
-                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small fs-4 text-center">
-                        <li class="nav-item text-white" sec:authorize="isAnonymous()">
-                            <a class="nav-link text-white" th:href="@{/login}">
-                                <i class="bi bi-box-arrow-in-right"></i>
-                                <p>Login</p>
-                            </a>
-                        </li>
-                        <li class="nav-item text-white" sec:authorize="isAuthenticated()">
-                            <a class="nav-link text-white" th:href="@{/logout}">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <p>
-                                    <span sec:authentication="name"></span>
-                                     - Logout
-                                </p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-house"></i>
-                                <p>Home</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-graph-up"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/orders/list}" class="nav-link text-white">
-                                <i class="bi bi-stickies"></i>
-                                <p>Orders</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-book"></i>
-                                <p>Products</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-people"></i>
-                                <p>Customers</p>
-                            </a>
-                        </li>
-                    </ul>
+                        <ul
+                            class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small fs-4 text-center">
+                            <li class="nav-item text-white" sec:authorize="isAnonymous()">
+                                <a class="nav-link text-white" th:href="@{/login}">
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                    <p>Login</p>
+                                </a>
+                            </li>
+                            <li class="nav-item text-white" sec:authorize="isAuthenticated()">
+                                <a class="nav-link text-white" th:href="@{/logout}">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    <p>
+                                        <span sec:authentication="name"></span>
+                                        - Logout
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/}" class="nav-link text-white">
+                                    <i class="bi bi-house"></i>
+                                    <p>Home</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link text-white">
+                                    <i class="bi bi-graph-up"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link text-white">
+                                    <i class="bi bi-stickies"></i>
+                                    <p>Orders</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link text-white">
+                                    <i class="bi bi-book"></i>
+                                    <p>Products</p>
+                                </a>
+                            </li>
+                            <li class="nav-item text-white" sec:authorize="isAuthenticated()">
+                                <a href="#" class="nav-link text-white" th:href="@{/customers} ">
+                                    <i class="bi bi-people"></i>
+                                    <p>Customers</p>
+                                </a>
+                            </li>
+                            <li class="nav-item text-white" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
+                                <a href="#" class="nav-link text-white" th:href="@{/users} ">
+                                    <i class="bi bi-people"></i>
+                                    <p>Employees</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
 
-<footer th:fragment = "footer">
-    <div class="px-3 py-2 bg-dark text-white fixed-bottom">
-        <div class="container">
-            <div class="d-flex flex-row align-items-center justify-content-end">
-                <a href="https://github.com/arthurruby/cyber-cogip" class="text-white fs-4">
-                    <i class="bi bi-github"></i>
-                </a>
+    <footer th:fragment="footer">
+        <div class="px-3 py-2 bg-dark text-white fixed-bottom">
+            <div class="container">
+
+
+                <div class="d-flex flex-row align-items-center justify-content-center">
+                    <p class="mx-3 d-flex "> &copy; Cyber-COGIP
+
+                        <a href="https://github.com/arthurruby/cyber-cogip" class="text-white fs-4 mx-4 ">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<div th:fragment="scripts">
-    <!-- Bootstrap JS scripts (jQuery, Popper, Bootstrap js) CDN -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    <div th:fragment="scripts">
+        <!-- Bootstrap JS scripts (jQuery, Popper, Bootstrap js) CDN -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-</div>
+    </div>
 
 </body>
+
 </html>

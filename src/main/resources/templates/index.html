@@ -1,153 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head th:replace="/fragments/layout :: head(title='Interface Cogip')"></head>
 
 <body>
-<header th:replace="/fragments/layout :: header"></header>
-<ul>
-    <li sec:authorize="hasRole('ROLE_ADMIN')">
-        This will only be displayed if authenticated user has role ROLE_ADMIN.
-    </li>
-</ul>
-<div th:if="${logoutMessage}">
-    <div class="alert alert-success">
-        <p th:text="${logoutMessage}"></p>
-    </div>
-</div>
-<h1>COGIP Bonjour!</h1>
-    <h3>Détail User:</h3>
-    <div th:each="user : ${users}">
-        <p>Username:
-            <span th:text="${user.getUsername()}"></span>
-        </p>
-        <p>First Name:
-            <span th:text="${user.getFirstName()}"></span>
-        </p>
-        <p>Last Name:
-            <span th:text="${user.getLastName()}"></span>
-        </p>
-        <p>Email:
-            <span th:text="${user.getEmail()}"></span>
-        </p>
-        <p>BCrypt Hashed Password:
-            <span th:text="${user.getPassword()}"></span>
-        </p>
-        <p>Role:
-            <span th:text="${user.getRole()}"></span>
-        </p>
-        <p>Associated orders:
-        </p>
-        <ul th:each="order: ${user.getOrders()}">
-            <li th:text="${order}"></li>
-        </ul>
-    </div>
+    <header th:replace="/fragments/layout :: header"></header>
 
-    <h3>Détail Customer:</h3>
-    <div th:each="customer : ${customers}">
-        <p>Name:
-            <span th:text="${customer.getName()}"></span>
-        </p>
-        <p>Email:
-            <span th:text="${customer.getEmail()}"></span>
-        </p>
-        <p>Phone:
-            <span th:text="${customer.getPhoneNumber()}"></span>
-        </p>
-        <p>Address:
-            <span th:text="${customer.getAddress()}"></span>
-        </p>
-        <p>Associated orders:</p>
-        <div th:each="order: ${customer.getOrders()}">
-            <ul th:object="${order}">
-                <li>
-                    Reference:
-                    <span th:text="*{reference}"></span>
-                </li>
-                <li>
-                    Total price:
-                    <span th:text="*{totalPrice.toString()}"></span>
-                    €
-                </li>
-                <li>
-                    Total price with VAT included:
-                    <span th:text="*{totalPriceWithVat.toString()}"></span>
-                    €
-                </li>
-                <li>
-                    List of products:
-                    <ul th:each="productHasOrder : ${order.getOrderHasProducts()}">
-                        <li>
-                            <span th:text="${productHasOrder.getQuantity()}"></span>
-                             x
-                            <span th:text="${productHasOrder.getProduct()}"></span>
-                             -
-                            <span th:text="${productHasOrder.getPrice()}"></span>
-                            € (
-                            <span th:object="${productHasOrder.getProduct()}">
-                                <span th:text="${productHasOrder.getProduct().getVatRate()}"></span>
-                            </span>
-                            )
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div th:object="${order.getUser()}">
-                        User associated:
-                        <span th:text="*{firstName}"></span>
-
-                        <span th:text="*{lastName}"></span>
-                    </div>
-                </li>
-                <li>
-                    <div th:object="${order.getCustomer()}">
-                        Customer:
-                        <span th:text="*{name}"></span>
-
-                        <span th:text="*{address}"></span>
-                    </div>
-                </li>
-                <li>
-                    Date of Creation:
-                    <span th:text="*{#temporals.format(dateOfCreation, 'dd-MM-yyyy HH:mm')}"></span>
-                </li>
-                <li>
-                    Status:
-                    <span th:text="*{status}"></span>
-                </li>
-            </ul>
+    <div th:if="${logoutMessage}">
+        <div class="alert alert-success">
+            <p th:text="${logoutMessage}"></p>
         </div>
     </div>
 
-    <h3>Détail Product:</h3>
-    <div th:each="product : ${products}">
-        <p>Name:
-            <span th:text="${product.getName()}"></span>
-        </p>
-        <p>Description:
-            <span th:text="${product.getDescription()}"></span>
-        </p>
-        <p>Category:
-            <span th:text="${product.getCategory()}"></span>
-        </p>
-        <p>Price:
-            <span th:text="${product.getPrice()}"></span>
-            €
-        </p>
-        <p>Stock:
-            <span th:text="${product.getStock()}"></span>
-        </p>
-        <p>Status:
-            <span th:text="${product.getStatus()}"></span>
-        </p>
-        <p>VAT Rate:
-            <span th:text="${product.getVatRate()}"></span>
-        </p>
-        <p>Associated orders:</p>
-        <ul th:each="orderHasProd: ${product.getOrderHasProducts()}">
-            <li th:text="${orderHasProd}"></li>
-        </ul>
+    <div class="container">
+        <h1>COGIP Bonjour!</h1>
     </div>
-<footer th:replace="/fragments/layout :: footer"></footer>
-<div th:replace="/fragments/layout :: scripts"></div>
+    <footer th:replace="/fragments/layout :: footer"></footer>
+    <div th:replace="/fragments/layout :: scripts"></div>
 </body>
+
 </html>

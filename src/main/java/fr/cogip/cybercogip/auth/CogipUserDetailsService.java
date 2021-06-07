@@ -18,7 +18,7 @@ public class CogipUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if (null == user){
+        if (null == user) {
             throw new UsernameNotFoundException("Cannot find username: " + username);
         }
         return new CogipUserPrincipal(user);
