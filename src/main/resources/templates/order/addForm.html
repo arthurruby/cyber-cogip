@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="/fragments/layout :: head(title='New order')"></head>
+
+<body>
+<header th:replace="/fragments/layout :: header"></header>
+
+<!--=====================================================-->
+<!-- Manquant : affichage et ajout de nouveaux produits -->
+<!-- Non fonctionnel : ajout de commande -->
+<!--=====================================================-->
+
+    <form action="#" th:action="@{/orders/add_order}" method="post" th:object="${order}">
+        <label for="customer">Customer id</label>
+        <input type="number" th:field="*{customer}" id="customer" placeholder="Customer id">
+        <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span>
+
+        <label for="user">User id</label>
+        <input type="number" th:field="*{user}" id="user" placeholder="User id">
+        <span th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></span>
+
+        <label for="status">Order status</label>
+        <input type="text" th:field="*{status}" id="status" placeholder="Order status">
+        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
+
+
+        <input type="submit" value="Create">
+    </form>
+
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>
