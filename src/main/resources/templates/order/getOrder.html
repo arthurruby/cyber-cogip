@@ -5,18 +5,20 @@
 <body>
 <header th:replace="/fragments/layout :: header"></header>
 
-<h1>Welcome to the getOrder test view...</h1>
+<h1>Welcome to the getOrder view...</h1>
 
-<ul>
-    <li th:text="${order.getId()}">1</li>
-    <li th:text="${order.getReference()}"></li>
-    <li th:text="${order.getStatus()}"></li>
-    <li th:text="${order.getDateOfCreation()}"></li>
-    <li th:text="${order.getUser()}"></li>
-    <li th:text="${order.getTotalPrice()}"></li>
-    <li th:text="${order.getTotalPriceWithVat()}"></li>
-</ul>
+<h3 th:text="'Details about order ref. : ' + ${order.getReference()} +':'"></h3>
 
+<p>Date of creation: <span
+        th:text="${order.getDateOfCreation()}"></span></p>
+<p>Customer Id: <span
+        th:text="${order.getCustomer()}"></span> </p>
+<p>User Id: <span
+        th:text="${order.getUser()}"></span></p>
+<p>HT Price: <span
+        th:text="${order.getTotalPrice()}"></span></p>
+<p>TC Price: <span
+        th:text="${order.getTotalPriceWithVat()}"></span></p>
 
 <footer th:replace="/fragments/layout :: footer"></footer>
 <div th:replace="/fragments/layout :: scripts"></div>
