@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="/fragments/layout :: head(title='getOrder')"></head>
+
+<body>
+<header th:replace="/fragments/layout :: header"></header>
+
+<h1>Welcome to the getOrder test view...</h1>
+
+<ul>
+    <li th:text="${order.getId()}">1</li>
+    <li th:text="${order.getReference()}"></li>
+    <li th:text="${order.getStatus()}"></li>
+    <li th:text="${order.getDateOfCreation()}"></li>
+    <li th:text="${order.getUser()}"></li>
+    <li th:text="${order.getTotalPrice()}"></li>
+    <li th:text="${order.getTotalPriceWithVat()}"></li>
+</ul>
+
+
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>

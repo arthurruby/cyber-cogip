@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="/fragments/layout :: head(title='Orders')"></head>
+
+<body>
+<header th:replace="/fragments/layout :: header"></header>
+
+<h1>Welcome to the orderList test view...</h1>
+
+<!-- New order button -->
+<a th:href="@{/orders/add_order}" class="btn btn-success">
+    <span class="glyphicon glyphicon-file"></span> New order
+</a>
+
+<!-- Search order field -->
+
+
+<!-- Order List -->
+<div th:each="order : ${orders}">
+    <p th:text="${order.getReference()}"></p>
+</div>
+
+
+<footer th:replace="/fragments/layout :: footer"></footer>
+<div th:replace="/fragments/layout :: scripts"></div>
+</body>
+</html>
