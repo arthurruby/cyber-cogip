@@ -5,20 +5,32 @@
 <body>
 <header th:replace="/fragments/layout :: header"></header>
 
-<h1>Welcome to the getOrder view...</h1>
+<h3 th:text="'Details about order ref. ' + ${order.getReference()} +':'"></h3>
 
-<h3 th:text="'Details about order ref. : ' + ${order.getReference()} +':'"></h3>
-
-<p>Date of creation: <span
-        th:text="${order.getDateOfCreation()}"></span></p>
-<p>Customer Id: <span
-        th:text="${order.getCustomer()}"></span> </p>
-<p>User Id: <span
-        th:text="${order.getUser()}"></span></p>
-<p>HT Price: <span
-        th:text="${order.getTotalPrice()}"></span></p>
-<p>TC Price: <span
-        th:text="${order.getTotalPriceWithVat()}"></span></p>
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Date of creation :</th>
+        <th scope="col">Customer :</th>
+        <th scope="col">Client :</th>
+        <th scope="col">User :</th>
+        <th scope="col">HT Price :</th>
+        <th scope="col">TC Price :</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row"></th>
+        <td><span th:text="${order.getReference()}"></span></td>
+        <td><span th:text="${order.getDateOfCreation()}"></span></td>
+        <td><span th:text="${order.getCustomer()}"></span></td>
+        <td><span th:text="${order.getUser()}"></span></td>
+        <td><span th:text="${order.getTotalPrice()}"></span></td>
+        <td><span th:text="${order.getTotalPriceWithVat()}"></span></td>
+    </tr>
+    </tbody>
+</table>
 
 <footer th:replace="/fragments/layout :: footer"></footer>
 <div th:replace="/fragments/layout :: scripts"></div>

@@ -18,9 +18,10 @@
     <tr>
         <th scope="col"></th>
         <th scope="col">Reference</th>
+        <th scope="col">Details</th>
         <th scope="col">Dat of creation</th>
-        <th scope="col">Client Id</th>
-        <th scope="col">User Id</th>
+        <th scope="col">Client</th>
+        <th scope="col">User</th>
         <th scope="col">HT Price</th>
         <th scope="col">TC Price</th>
     </tr>
@@ -28,12 +29,20 @@
     <tbody>
     <tr th:each="order : ${orders}">
         <th scope="row"></th>
-        <td><span th:text="${order.getReference()}"></span></td>
-        <td><span th:text="${order.getDateOfCreation()}"></span></td>
-        <td><span th:text="${order.getCustomer()}"></span></td>
-        <td><span th:text="${order.getUser()}"></span></td>
-        <td><span th:text="${order.getTotalPrice()}"></span></td>
-        <td><span th:text="${order.getTotalPriceWithVat()}"></span></td>
+        <td><span
+                th:text="${order.getReference()}"></span></td>
+        <td><a
+                th:href="@{/orders/{ref}(ref=${order.getReference()})}" class="text-info">details</a></td>
+        <td><span
+                th:text="${order.getDateOfCreation()}"></span></td>
+        <td><span
+                th:text="${order.getCustomer()}"></span></td>
+        <td><span
+                th:text="${order.getUser()}"></span></td>
+        <td><span
+                th:text="${order.getTotalPrice()}"></span></td>
+        <td><span
+                th:text="${order.getTotalPriceWithVat()}"></span></td>
     </tr>
     </tbody>
 </table>
