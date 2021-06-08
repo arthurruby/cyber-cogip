@@ -17,7 +17,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank
     @Size(min = 2, max = 55)
@@ -44,7 +44,7 @@ public class Product {
     @Column(nullable = false)
     private ProductStatus status;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -53,13 +53,15 @@ public class Product {
 
     public Product() {
     this.orderHasProducts = new ArrayList<>();
+    this.vatRate=Vat.REGULAR;
+    this.status= ProductStatus.AVAILABLE;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
