@@ -63,19 +63,19 @@
                                     <p>Home</p>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav-item text-white" sec:authorize="isAuthenticated()">
                                 <a href="#" class="nav-link text-white">
                                     <i class="bi bi-graph-up"></i>
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav-item text-white" sec:authorize="isAuthenticated()">
                                 <a href="#" th:href="@{/orders/list}" class="nav-link text-white">
                                     <i class="bi bi-stickies"></i>
                                     <p>Orders</p>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav-item text-white" sec:authorize="isAuthenticated()">
                                 <a href="#" th:href="@{/products}" class="nav-link text-white">
                                     <i class="bi bi-book"></i>
                                     <p>Products</p>
