@@ -29,7 +29,7 @@ public class Order {
     private OrderStatus status;
 
     @PastOrPresent
-    @Column(name= "date_of_creation", nullable = false)
+    @Column(name = "date_of_creation", nullable = false)
     private LocalDateTime dateOfCreation;
 
     @Transient
@@ -38,13 +38,13 @@ public class Order {
     @Transient
     private BigDecimal totalPriceWithVat;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name="id_customer")
-    private  Customer customer;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_customer")
+    private Customer customer;
 
     @OneToMany(mappedBy = "order")
     private List<OrderHasProduct> orderHasProducts;
@@ -55,7 +55,7 @@ public class Order {
         this.totalPriceWithVat = new BigDecimal("00.00");
     }
 
-    public Order( String reference, OrderStatus status, LocalDateTime dateOfCreation, User user, Customer customer) {
+    public Order(String reference, OrderStatus status, LocalDateTime dateOfCreation, User user, Customer customer) {
 
         this.reference = reference;
         this.status = status;
@@ -76,26 +76,8 @@ public class Order {
         return this.reference;
     }
 
-    public void setReference() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.customer.getName().substring(0,3).toUpperCase())
-                .append('-')
-                .append(this.user.getUsername().substring(0,3).toUpperCase())
-                .append('-')
-                .append(String.valueOf(this.dateOfCreation.getYear()).substring(2));
-        if (this.dateOfCreation.getMonth().getValue() < 10) {
-            sb.append('0');
-        }
-        sb.append(this.dateOfCreation.getMonth().getValue());
-        if (this.dateOfCreation.getDayOfMonth() < 10) {
-            sb.append('0');
-        }
-        sb.append(this.dateOfCreation.getDayOfMonth());
-        if (this.dateOfCreation.getHour() < 10) {
-            sb.append('0');
-        }
-        sb.append(this.dateOfCreation.getHour());
-        this.reference = sb.toString();
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public OrderStatus getStatus() {
@@ -115,22 +97,20 @@ public class Order {
     }
 
     public BigDecimal getTotalPrice() {
-        if (!this.orderHasProducts.isEmpty()){
-            for (OrderHasProduct orderHasProduct : this.orderHasProducts){
-                this.totalPrice = this.totalPrice.add(orderHasProduct.getPrice()
-                                .multiply(BigDecimal.valueOf(orderHasProduct.getQuantity())));
+        if (!this.orderHasProducts.isEmpty()) {
+            for (OrderHasProduct orderHasProduct : this.orderHasProducts) {
+                this.totalPrice = this.totalPrice
+                        .add(orderHasProduct.getPrice().multiply(BigDecimal.valueOf(orderHasProduct.getQuantity())));
             }
         }
         return this.totalPrice.setScale(2, RoundingMode.UP);
     }
 
     public BigDecimal getTotalPriceWithVat() {
-        if (!this.orderHasProducts.isEmpty()){
-            for (OrderHasProduct orderHasProduct : this.orderHasProducts){
-                this.totalPriceWithVat = this.totalPriceWithVat.add(
-                        orderHasProduct.getPrice().add(
-                                orderHasProduct.getPrice().multiply(
-                                        orderHasProduct.getProduct().getVatRate().getValue()))
+        if (!this.orderHasProducts.isEmpty()) {
+            for (OrderHasProduct orderHasProduct : this.orderHasProducts) {
+                this.totalPriceWithVat = this.totalPriceWithVat.add(orderHasProduct.getPrice()
+                        .add(orderHasProduct.getPrice().multiply(orderHasProduct.getProduct().getVatRate().getValue()))
                         .multiply(BigDecimal.valueOf(orderHasProduct.getQuantity())));
             }
         }
@@ -164,10 +144,8 @@ public class Order {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Order #");
-        sb.append(this.reference).append(" placed by ")
-        .append(this.customer.toString())
-        .append(" and supervised by ")
-        .append(this.user.toString());
+        sb.append(this.reference).append(" placed by ").append(this.customer.toString()).append(" and supervised by ")
+                .append(this.user.toString());
         return sb.toString();
     }
 }

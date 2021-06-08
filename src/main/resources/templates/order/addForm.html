@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head th:replace="/fragments/layout :: head(title='New order')"></head>
 
 <body>
-<header th:replace="/fragments/layout :: header"></header>
+    <header th:replace="/fragments/layout :: header"></header>
 
-<!--=====================================================-->
-<!-- Manquant : affichage et ajout de nouveaux produits -->
-<!-- Non fonctionnel : ajout de commande -->
-<!--=====================================================-->
+    <!--=====================================================-->
+    <!-- Manquant : affichage et ajout de nouveaux produits -->
+    <!-- Non fonctionnel : ajout de commande -->
+    <!--=====================================================-->
 
     <form action="#" th:action="@{/orders/add_order}" method="post" th:object="${order}">
-        <label for="customer">Customer id</label>
-        <input type="number" th:field="*{customer}" id="customer" placeholder="Customer id">
-        <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span>
+        <label for="customer">Customer </label>
+        <select name="customers" id="customer-select" th:field="*{customer.id}">
+            <option value="">--Please choose an option--</option>
+            <option th:each="i : ${customers}" th:value="${i.id}" th:text="${i.toString()}"></option>
+
+        </select>
+
+        <span th:if="${#fields.hasErrors('customer.id')}" th:errors="*{customer.id}"></span>
 
         <label for="user">User id</label>
-        <input type="number" th:field="*{user}" id="user" placeholder="User id">
-        <span th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></span>
+        <select name="users" id="user-select" th:field="*{user.id}">
+            <option value="">--Please choose an option--</option>
+            <option th:each="i : ${users}" th:value="${i.id}" th:text="${i.toString()}"></option>
+
+        </select>
+
+        <span th:if="${#fields.hasErrors('user.id')}" th:errors="*{user.id}"></span>
 
         <label for="status">Order status</label>
-        <input type="text" th:field="*{status}" id="status" placeholder="Order status">
+        <option value="">--Please choose an option--</option>
+        <select name="status" id="order-status">
+            <option th:each="roleOpt : ${T(fr.cogip.cybercogip.models.enums.OrderStatus).values()}"
+                th:value="${roleOpt.name().toUpperCase()}" th:text="${roleOpt}">
+            </option>
+        </select>
         <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
+
 
 
         <input type="submit" value="Create">
     </form>
 
-<footer th:replace="/fragments/layout :: footer"></footer>
-<div th:replace="/fragments/layout :: scripts"></div>
+    <footer th:replace="/fragments/layout :: footer"></footer>
+    <div th:replace="/fragments/layout :: scripts"></div>
 </body>
+
 </html>

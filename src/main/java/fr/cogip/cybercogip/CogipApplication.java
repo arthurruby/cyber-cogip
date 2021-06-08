@@ -94,7 +94,7 @@ public class CogipApplication {
 			order1.setStatus(OrderStatus.PENDING);
 			order1.setCustomer(customer1);
 			order1.setUser(user1);
-			order1.setReference();
+			order1.setReference("1234567898765432");
 			order1 = orderRepo.save(order1);
 
 			OrderHasProduct orderHasProduct1 = new OrderHasProduct();
