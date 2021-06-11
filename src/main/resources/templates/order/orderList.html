@@ -5,16 +5,14 @@
 <body>
 <header th:replace="/fragments/layout :: header"></header>
 
-<h1>Welcome to the orderList test view...</h1>
-
 <!-- New order button -->
-<a class="btn btn-success" th:href="@{/orders/add_order}">
+<a class="btn btn-success m-3" th:href="@{/orders/add_order}">
     <span class="glyphicon glyphicon-file"></span> New order
 </a>
 
 <!-- Order List -->
 <table class="table table-striped table-hover">
-    <thead class="thead-dark">
+    <thead class="thead-success">
     <tr>
         <th scope="col"></th>
         <th scope="col">Reference</th>
