@@ -2,6 +2,8 @@
 
 POEC Cybersécurité - Group Project
 
-Gros bisou
-Test nico
-test sando
+DATABASE SERVER CONFIGURATION
+ * connect to a MariaDB server on port 3307
+ * run the SQL script file (in joined docs)
+ 
+ 
